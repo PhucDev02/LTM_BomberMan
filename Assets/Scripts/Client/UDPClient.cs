@@ -15,14 +15,14 @@ namespace MainGame
             Instance = this;
         }
 
-        public static string serverIP;/*"192.168.116.138"*//*"192.168.2.5"*/
+        public static string serverIP =/*"192.168.116.138"*/"192.168.2.5";
         public static int serverPort = 9000;
         private static UdpClient client;
         private Thread clientThread;
 
         void Start()
         {
-            serverIP = Utility.GetLocalIPAddress();
+            //serverIP = Utility.GetLocalIPAddress();
             client = new UdpClient();
             clientThread = new Thread(StartClient);
             clientThread.IsBackground = true;

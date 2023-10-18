@@ -5,7 +5,7 @@ using System.Net;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class Utility : MonoBehaviour
+public class Utility : MonoBehaviour 
 {
     [RuntimeInitializeOnLoadMethod]
     public static string GetLocalIPAddress()
@@ -21,6 +21,8 @@ public class Utility : MonoBehaviour
         // Loop through the IP addresses and find a suitable one
         foreach (IPAddress ipAddress in localIPs)
         {
+
+            Debug.Log(localIPAddress);
             // Check if the IP address is an IPv4 address (not IPv6)
             if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
@@ -28,7 +30,7 @@ public class Utility : MonoBehaviour
                 break; // Stop when the first IPv4 address is found
             }
         }
-
+        Debug.Log(localIPAddress);
         return localIPAddress;
     }
 }
