@@ -1,3 +1,4 @@
+using Client;
 using MainGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,15 +8,21 @@ public class PlayerController : MonoBehaviour
 {
     public FixedJoystick joystick;
     public float speed;
-    PlayerMovement movement;
+    ClientDataPacket data;
     private void Awake()
     {
-        movement = new PlayerMovement();
+        data = new ClientDataPacket();
+        data.config.isOnline = true;
     }
     private void Update()
     {
-        movement.Set(joystick.Direction);
-        transform.position = transform.position + speed * (Time.deltaTime * (Vector3)movement.Get());
-        UDPClient.Send(movement.GetBytes());
+        data.position.Set(joystick.Direction);
+        transform.position = transform.position + speed * (Time.deltaTime * (Vector3)joystick.Direction);
+        UDPClient.Send(data.GetBytes());
+    }
+    private void OnDestroy()
+    {
+        data.config.isOnline = false;
+        UDPClient.Send(data.GetBytes());
     }
 }

@@ -8,12 +8,12 @@ public class PlayerServer : MonoBehaviour
     public void Awake()
     {
         Instance = this;
-        dir = new Vector2();
     }
-
-    public Vector2 dir;
-    private void Update()
+    public void SetPositon(Vector2 pos)
     {
-        transform.position = transform.position + (Vector3)dir * 5 * Time.deltaTime;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            transform.position = pos;
+        });
     }
 }

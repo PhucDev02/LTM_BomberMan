@@ -50,5 +50,6 @@ public class LoadingSystem : MonoBehaviour
         while (scene.progress < 0.9f);
 
         scene.allowSceneActivation = true;
+        canvasGroup.DOFade(0, 0.5f);
     }
 }

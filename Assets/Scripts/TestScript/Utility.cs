@@ -12,25 +12,19 @@ public class Utility : MonoBehaviour
     {
         string localIPAddress = string.Empty;
 
-        // Get the host name of the local machine
         string hostName = Dns.GetHostName();
 
-        // Get the IP addresses associated with the local machine
         IPAddress[] localIPs = Dns.GetHostAddresses(hostName);
 
-        // Loop through the IP addresses and find a suitable one
         foreach (IPAddress ipAddress in localIPs)
         {
 
-            Debug.Log(localIPAddress);
-            // Check if the IP address is an IPv4 address (not IPv6)
             if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
             {
                 localIPAddress = ipAddress.ToString();
                 break; // Stop when the first IPv4 address is found
             }
         }
-        Debug.Log(localIPAddress);
         return localIPAddress;
     }
 }

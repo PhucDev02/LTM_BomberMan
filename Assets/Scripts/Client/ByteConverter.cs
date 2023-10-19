@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ByteConverter : MonoBehaviour
 {
-    public static byte[] GetBytes(PlayerMovement obj)
+    public static byte[] GetBytes(PlayerPosition obj)
     {
         byte[] serializedData;
 
@@ -19,14 +19,14 @@ public class ByteConverter : MonoBehaviour
         }
         return serializedData;
     }
-    public static PlayerMovement FromBytes(byte[] data)
+    public static PlayerPosition FromBytes(byte[] data)
     {
-        PlayerMovement playerMovement;
+        PlayerPosition playerMovement;
 
         using (MemoryStream memoryStream = new MemoryStream(data))
         {
             IFormatter formatter = new BinaryFormatter();
-            playerMovement = (PlayerMovement)formatter.Deserialize(memoryStream);
+            playerMovement = (PlayerPosition)formatter.Deserialize(memoryStream);
         }
 
         return playerMovement;
