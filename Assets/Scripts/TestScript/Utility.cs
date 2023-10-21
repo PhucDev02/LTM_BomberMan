@@ -1,30 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
-using System.Net;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
-public class Utility : MonoBehaviour 
+public class Utility
 {
-    [RuntimeInitializeOnLoadMethod]
-    public static string GetLocalIPAddress()
+    public static Vector2 GetInitPos(PlayerColor color)
     {
-        string localIPAddress = string.Empty;
-
-        string hostName = Dns.GetHostName();
-
-        IPAddress[] localIPs = Dns.GetHostAddresses(hostName);
-
-        foreach (IPAddress ipAddress in localIPs)
+        switch (color)
         {
-
-            if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
-            {
-                localIPAddress = ipAddress.ToString();
-                break; // Stop when the first IPv4 address is found
-            }
+            case PlayerColor.White:
+                return new Vector2(-6, 5);
+            case PlayerColor.Black:
+                return new Vector2(6, 5);
+            case PlayerColor.Blue:
+                return new Vector2(-6, -5);
+            case PlayerColor.Red:
+                return new Vector2(6, -5);
         }
-        return localIPAddress;
+        return Vector2.zero;
     }
+    public static PlayerColor GetPlayerColor(int index)
+    {
+        if (index == 0)
+            return PlayerColor.White;
+        if (index == 1)
+            return PlayerColor.Black;
+        if (index == 2)
+            return PlayerColor.Blue;
+        return PlayerColor.Red;
+    }
+
+
 }

@@ -1,4 +1,5 @@
 using Client;
+using Common;
 using MainGame;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,8 +7,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public FixedJoystick joystick;
-    public float speed;
+
+    [Header("Config")]
+    public PlayerColor color;
+    public string ip;
+
     ClientDataPacket data;
     private void Awake()
     {
@@ -19,10 +23,13 @@ public class PlayerController : MonoBehaviour
     {
         if (data.config.isOnline)
         {
-            transform.position = transform.position + speed * (Time.deltaTime * (Vector3)joystick.Direction);
             data.position.Set(transform.position);
             UDPClient.Send(data.GetBytes());
         }
+    }
+    public void SetPosition(Vector2 pos)
+    {
+        data.position.Set(transform.position);
     }
     private void QuitRoom()
     {

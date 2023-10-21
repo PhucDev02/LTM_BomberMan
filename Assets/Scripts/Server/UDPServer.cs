@@ -6,6 +6,7 @@ using System.Threading;
 using System;
 using System.Collections.Generic;
 using Client;
+using Server;
 
 namespace MainGame
 {
@@ -45,48 +46,45 @@ namespace MainGame
 
             ProcessNewClient(clientEndPoint);
             //Xu li data
-            ProcessData(bytes);
+            ProcessData(bytes, clientEndPoint);
 
             //phan hoi lai 
-            byte[] response = Encoding.ASCII.GetBytes($"Received");
-            server.Send(response, response.Length, clientEndPoint);
+            //byte[] response = Encoding.ASCII.GetBytes($"Received");
+            //server.Send(response, response.Length, clientEndPoint);
         }
 
         private void ProcessNewClient(IPEndPoint clientEndPoint)
         {
 
-            int senderPort = clientEndPoint.Port;
-            string senderIp = clientEndPoint.Address.ToString();
-            string playerName = senderIp + ":" + senderPort;
+            //int senderPort = clientEndPoint.Port;
+            //string senderIp = clientEndPoint.Address.ToString();
+            //string playerName = senderIp + ":" + senderPort;
+            string playerName = clientEndPoint.Address.ToString();
             if (!clients.ContainsKey(playerName))
             {
-
-                clients.Add(playerName, clientEndPoint);
+                Debug.Log(playerName);
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    var newPlayer = Instantiate(Resources.Load<GameObject>("PlayerServer"));
-                    newPlayer.GetComponent<PlayerServer>().pName = playerName;
-                    UI_Lobby.Instance.AddClient(playerName);
+                    PlayerManager.GeneratePlayer(playerName);
                 });
+                clients.Add(playerName, clientEndPoint);
+
             }
         }
 
-        private void ProcessData(byte[] bytes)
+        private void ProcessData(byte[] bytes, IPEndPoint clientEndPoint)
         {
             ClientDataPacket data = ClientDataPacket.Deserialize(bytes);
 
-
-            PlayerServer.Instance.SetPositon(data.position.Get());
 
             if (!data.config.isOnline)
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
                     UI_Lobby.Instance.RemoveClient(PlayerServer.Instance.pName);
-                    Destroy(PlayerServer.Instance.gameObject);
+                    PlayerManager.RemovePlayer(clientEndPoint.Address.ToString());
+                    clients.Remove(clientEndPoint.Address.ToString());
                 });
-                clients.Remove(PlayerServer.Instance.pName);
-                Debug.Log("destroy");
             }
         }
 
