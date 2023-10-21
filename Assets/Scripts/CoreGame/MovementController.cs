@@ -7,7 +7,7 @@ namespace Common
 
     public class MovementController : MonoBehaviour
     {
-        public PlayerController controller;
+        public PlayerClientController controller;
         private new Rigidbody2D rigidbody;
         private Vector2 direction = Vector2.down;
         [Space(10)]
@@ -27,7 +27,7 @@ namespace Common
         {
             rigidbody = GetComponent<Rigidbody2D>();
             activeSpriteRenderer = spriteRendererDown;
-            joystick= FindObjectOfType<FixedJoystick>();
+            joystick = FindObjectOfType<FixedJoystick>();
 
         }
 
@@ -105,6 +105,9 @@ namespace Common
             gameObject.SetActive(false);
             FindObjectOfType<GameManager>().CheckWinState();
         }
-
+        private void OnValidate()
+        {
+            controller = GetComponent<PlayerClientController>();
+        }
     }
 }

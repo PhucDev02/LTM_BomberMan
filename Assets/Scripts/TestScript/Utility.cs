@@ -19,11 +19,11 @@ public class Utility
     }
     public static PlayerColor GetPlayerColor(int index)
     {
-        if (index == 0)
-            return PlayerColor.White;
         if (index == 1)
-            return PlayerColor.Black;
+            return PlayerColor.White;
         if (index == 2)
+            return PlayerColor.Black;
+        if (index == 3)
             return PlayerColor.Blue;
         return PlayerColor.Red;
     }

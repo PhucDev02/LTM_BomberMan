@@ -62,12 +62,17 @@ namespace MainGame
             string playerName = clientEndPoint.Address.ToString();
             if (!clients.ContainsKey(playerName))
             {
+                if (clients.Count >= 4)
+                {
+                    Debug.LogError("Room is full");
+                    return;
+                }
                 Debug.Log(playerName);
+                clients.Add(playerName, clientEndPoint);
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
                     PlayerManager.GeneratePlayer(playerName);
                 });
-                clients.Add(playerName, clientEndPoint);
 
             }
         }
@@ -81,7 +86,7 @@ namespace MainGame
             {
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    UI_Lobby.Instance.RemoveClient(PlayerServer.Instance.pName);
+                    UI_Lobby.Instance.RemoveClient(clientEndPoint.Address.ToString());
                     PlayerManager.RemovePlayer(clientEndPoint.Address.ToString());
                     clients.Remove(clientEndPoint.Address.ToString());
                 });

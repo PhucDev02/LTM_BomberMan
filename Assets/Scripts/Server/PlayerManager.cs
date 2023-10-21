@@ -8,14 +8,12 @@ namespace Server
 {
     public class PlayerManager : MonoBehaviour
     {
-        public static List<GameObject> players;
+        public static List<GameObject> players=new List<GameObject>();
         public static void GeneratePlayer(string playerName)
         {
-            if (UDPServer.clients.Count >= 4)
-            {
-                Debug.LogError("Room is full");
-            }
+           
             PlayerColor color = Utility.GetPlayerColor(UDPServer.clients.Count);
+            Debug.Log(UDPServer.clients.Count);
             var newPlayer = Instantiate(Resources.Load<GameObject>("Server/" + color.ToString() + "Player"));
             newPlayer.transform.position = Utility.GetInitPos(color);
             newPlayer.GetComponent<PlayerController>().color = color;

@@ -533,9 +533,8 @@ GameObject:
   - component: {fileID: 5879614341149993120}
   - component: {fileID: 5879614341149993125}
   - component: {fileID: 5879614341149993123}
-  - component: {fileID: 5879614341149993122}
   - component: {fileID: 5879614341149993121}
-  - component: {fileID: -45532779924444827}
+  - component: {fileID: 6714582371661114621}
   m_Layer: 3
   m_Name: BlackPlayer
   m_TagString: Player
@@ -599,26 +598,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &5879614341149993122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879614341149993150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1841e06630928734691e06011c8a3c89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: -45532779924444827}
-  speed: 5
-  joystick: {fileID: 0}
-  spriteRendererUp: {fileID: 5879614340254676635}
-  spriteRendererDown: {fileID: 5879614340345886142}
-  spriteRendererLeft: {fileID: 5879614339651246098}
-  spriteRendererRight: {fileID: 5879614341129601275}
-  spriteRendererDeath: {fileID: 6933967370136482323}
 --- !u!114 &5879614341149993121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +622,7 @@ MonoBehaviour:
   explosionRadius: 1
   destructibleTiles: {fileID: 0}
   destructiblePrefab: {fileID: -8738203639632321532, guid: 1ac7a5f8ae90ed04aa34c0753307c241, type: 3}
---- !u!114 &-45532779924444827
+--- !u!114 &6714582371661114621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -652,7 +631,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5879614341149993150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a725367bf657d0948836d9341c342b19, type: 3}
+  m_Script: {fileID: 11500000, guid: 80333ac488c476d4e8851285bd156820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
