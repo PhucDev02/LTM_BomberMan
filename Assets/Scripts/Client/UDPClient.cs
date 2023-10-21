@@ -22,7 +22,7 @@ namespace MainGame
 
         void Start()
         {
-            serverIP = GameManager.serverIP;
+            Debug.Log(serverIP);
             client = new UdpClient();
             clientThread = new Thread(StartClient);
             clientThread.IsBackground = true;

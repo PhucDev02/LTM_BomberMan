@@ -30,7 +30,7 @@ public class UI_EnterIP : UI_AbstractScreen
     public TMP_InputField input;
     public void EnterGame()
     {
-        GameManager.serverIP = input.text;
+        MainGame.UDPClient.serverIP = input.text;
         LoadingSystem.Instance.LoadScene("Client", 2);
     }
     public void SetIP(TextMeshProUGUI txt)
