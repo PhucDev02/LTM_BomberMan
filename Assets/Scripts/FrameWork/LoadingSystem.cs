@@ -16,7 +16,15 @@ public class LoadingSystem : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
@@ -32,10 +40,11 @@ public class LoadingSystem : MonoBehaviour
     }
     public async void LoadScene(string sceneName, float time)
     {
+        Reset();
         var scene = SceneManager.LoadSceneAsync(sceneName);
         scene.allowSceneActivation = false;
 
-        this.canvas.worldCamera = Camera.main;
+        //this.canvas.worldCamera = Camera.main;
         this.canvasGroup.gameObject.SetActive(true);
         this.canvasGroup.DOFade(1f, 0.2f);
         await UniTask.Delay(500);

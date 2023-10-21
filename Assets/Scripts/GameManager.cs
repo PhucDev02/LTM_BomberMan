@@ -22,6 +22,6 @@ public class GameManager : MonoBehaviour
     [Button]
     public void Test()
     {
-        Instantiate(Resources.Load<GameObject>("Player"));
+        Instantiate(Resources.Load<GameObject>("PlayerServer"));
     }
 }

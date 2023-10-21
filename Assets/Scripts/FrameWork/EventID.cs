@@ -1,4 +1,5 @@
 public enum EventID
 {
-    OnNewPlayer
+    OnQuitRoom
+
 }

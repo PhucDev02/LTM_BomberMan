@@ -36,7 +36,7 @@ namespace MainGame
         }
         #endregion
 
-        public static Dictionary<IPEndPoint, string> clients = new Dictionary<IPEndPoint, string>();
+        public static Dictionary<string, IPEndPoint> clients = new Dictionary<string, IPEndPoint>();
         private void GameLoop()
         {
             //Nhan data
@@ -55,17 +55,19 @@ namespace MainGame
         private void ProcessNewClient(IPEndPoint clientEndPoint)
         {
 
-            if (!clients.ContainsKey(clientEndPoint))
+            int senderPort = clientEndPoint.Port;
+            string senderIp = clientEndPoint.Address.ToString();
+            string playerName = senderIp + ":" + senderPort;
+            if (!clients.ContainsKey(playerName))
             {
-                int senderPort = clientEndPoint.Port;
-                string senderIp = clientEndPoint.Address.ToString();
-                string playerKey = senderIp + ":" + senderPort;
 
-                clients.Add(clientEndPoint,playerKey);
+                clients.Add(playerName, clientEndPoint);
                 UnityMainThreadDispatcher.Instance().Enqueue(() =>
                 {
-                    Instantiate(Resources.Load<GameObject>("Player"));
-                }); 
+                    var newPlayer = Instantiate(Resources.Load<GameObject>("PlayerServer"));
+                    newPlayer.GetComponent<PlayerServer>().pName = playerName;
+                    UI_Lobby.Instance.AddClient(playerName);
+                });
             }
         }
 
@@ -76,11 +78,15 @@ namespace MainGame
 
             PlayerServer.Instance.SetPositon(data.position.Get());
 
-            if (data.config.isOnline == false)
+            if (!data.config.isOnline)
             {
-                Destroy(PlayerServer.Instance.gameObject);
-                //clients.Remove()
-                Debug.Log("destroy"); 
+                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                {
+                    UI_Lobby.Instance.RemoveClient(PlayerServer.Instance.pName);
+                    Destroy(PlayerServer.Instance.gameObject);
+                });
+                clients.Remove(PlayerServer.Instance.pName);
+                Debug.Log("destroy");
             }
         }
 

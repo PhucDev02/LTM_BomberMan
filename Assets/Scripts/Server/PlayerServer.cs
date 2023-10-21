@@ -9,6 +9,7 @@ public class PlayerServer : MonoBehaviour
     {
         Instance = this;
     }
+    public string pName;
     public void SetPositon(Vector2 pos)
     {
         UnityMainThreadDispatcher.Instance().Enqueue(() =>

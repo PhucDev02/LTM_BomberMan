@@ -1,10 +1,9 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class UI_EnterIP : UI_AbstractScreen
+public class UI_Pause : UI_AbstractScreen
 {
     public Transform board;
     public override void Open()
@@ -25,16 +24,10 @@ public class UI_EnterIP : UI_AbstractScreen
     {
         board.localScale = Vector3.zero;
     }
+    public void QuitGame()
+    {
+        this.PostEvent(EventID.OnQuitRoom);
+        LoadingSystem.Instance.LoadScene("Home",2.0f); 
+    }
 
-    [Space(10)]
-    public TMP_InputField input;
-    public void EnterGame()
-    {
-        GameManager.serverIP = input.text;
-        LoadingSystem.Instance.LoadScene("Client", 2);
-    }
-    public void SetIP(TextMeshProUGUI txt)
-    {
-        input.text = txt.text;
-    }
 }

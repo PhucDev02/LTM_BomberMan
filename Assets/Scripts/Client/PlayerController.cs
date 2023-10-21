@@ -13,16 +13,24 @@ public class PlayerController : MonoBehaviour
     {
         data = new ClientDataPacket();
         data.config.isOnline = true;
+        this.RegisterListener(EventID.OnQuitRoom, (res) => QuitRoom());
     }
     private void Update()
     {
-        data.position.Set(joystick.Direction);
-        transform.position = transform.position + speed * (Time.deltaTime * (Vector3)joystick.Direction);
-        UDPClient.Send(data.GetBytes());
+        if (data.config.isOnline)
+        {
+            transform.position = transform.position + speed * (Time.deltaTime * (Vector3)joystick.Direction);
+            data.position.Set(transform.position);
+            UDPClient.Send(data.GetBytes());
+        }
     }
-    private void OnDestroy()
+    private void QuitRoom()
     {
-        data.config.isOnline = false;
-        UDPClient.Send(data.GetBytes());
+        if (data.config.isOnline)
+        {
+            data.config.isOnline = false;
+            UDPClient.Send(data.GetBytes());
+            Debug.Log("Client Quit Room");
+        }
     }
 }
