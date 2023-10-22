@@ -6,4 +6,5 @@ using UnityEngine;
 public class PlayerConfig 
 {
     public bool isOnline;
+    public string name;
 }

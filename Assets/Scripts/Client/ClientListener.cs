@@ -9,20 +9,20 @@ using UnityEngine;
 
 public class ClientListener : MonoBehaviour
 {
-    #region declare port and server
+    #region declare port and thread
     public static int port = 9000;
     private UdpClient client;
     private Thread listenThread;
     #endregion
-    #region start server
+    #region start listen
     void Start()
     {
         port = 9000;
-        listenThread = new Thread(StartServer);
+        listenThread = new Thread(Listening);
         listenThread.IsBackground = true;
         listenThread.Start();
     }
-    void StartServer()
+    void Listening()
     {
         client = new UdpClient(port);
         while (true)
@@ -48,7 +48,8 @@ public class ClientListener : MonoBehaviour
 
     private void ProcessData(byte[] bytes)
     {
-        //throw new NotImplementedException();
+        ServerDataPacket data = Utility.Deserialize<ServerDataPacket>(bytes);
+
     }
     private void OnDestroy()
     {

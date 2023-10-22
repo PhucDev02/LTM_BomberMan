@@ -79,7 +79,7 @@ namespace MainGame
 
         private void ProcessData(byte[] bytes, IPEndPoint clientEndPoint)
         {
-            ClientDataPacket data = ClientDataPacket.Deserialize(bytes);
+            ClientDataPacket data = Utility.Deserialize<ClientDataPacket>(bytes);
 
 
             if (!data.config.isOnline)

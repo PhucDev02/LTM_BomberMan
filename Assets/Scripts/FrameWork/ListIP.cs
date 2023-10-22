@@ -81,7 +81,7 @@ public class ListIP : MonoBehaviour
         }
         catch (Exception e)
         {
-            //Debug.Log(e);
+            Debug.LogWarning(e);
         }
     }
 }

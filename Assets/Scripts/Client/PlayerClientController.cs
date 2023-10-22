@@ -18,7 +18,7 @@ public class PlayerClientController : PlayerController
         if (data.config.isOnline)
         {
             data.position.Set(transform.position);
-            UDPClient.Send(data.GetBytes());
+            UDPClient.Send(Utility.GetBytes(data));
         }
     }
     public void SetPosition(Vector2 pos)
@@ -30,7 +30,7 @@ public class PlayerClientController : PlayerController
         if (data.config.isOnline)
         {
             data.config.isOnline = false;
-            UDPClient.Send(data.GetBytes());
+            UDPClient.Send(Utility.GetBytes(data));
             Debug.Log("Client Quit Room");
         }
     }
